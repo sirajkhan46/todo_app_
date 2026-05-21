@@ -1,0 +1,829 @@
+/* ============================================================
+   Opus Task Manager — style.css
+   Aesthetic: Luxury Dark · Warm Gold Accents · Glassmorphism
+   ============================================================ */
+
+/* ── Custom Properties ───────────────────────────────────── */
+:root {
+  /* Color Palette */
+  --bg:             #0d0d10;
+  --surface:        #131318;
+  --glass:          rgba(255, 255, 255, 0.035);
+  --glass-border:   rgba(255, 255, 255, 0.07);
+  --glass-hover:    rgba(255, 255, 255, 0.055);
+
+  --gold:           #c9a84c;
+  --gold-light:     #e2c47a;
+  --gold-dim:       rgba(201, 168, 76, 0.18);
+  --gold-glow:      rgba(201, 168, 76, 0.08);
+
+  --text-primary:   #eae6df;
+  --text-secondary: #7a7670;
+  --text-muted:     #45433f;
+
+  --success:        #4caf82;
+  --success-dim:    rgba(76, 175, 130, 0.15);
+  --danger:         #c9614c;
+  --danger-dim:     rgba(201, 97, 76, 0.15);
+
+  /* Orb colors */
+  --orb-1:          rgba(201, 168, 76, 0.06);
+  --orb-2:          rgba(100, 80, 160, 0.05);
+  --orb-3:          rgba(76, 175, 130, 0.04);
+
+  /* Typography */
+  --font-display:   'Cormorant Garamond', Georgia, serif;
+  --font-ui:        'DM Sans', system-ui, sans-serif;
+  --font-mono:      'DM Mono', 'Courier New', monospace;
+
+  /* Spacing */
+  --radius-sm:      8px;
+  --radius-md:      14px;
+  --radius-lg:      20px;
+  --radius-xl:      28px;
+
+  /* Transitions */
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth:    cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:       160ms;
+  --dur-med:        280ms;
+  --dur-slow:       420ms;
+}
+
+/* ── Reset & Base ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-weight: 300;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 16px 80px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Ambient Background Orbs ─────────────────────────────── */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-orb--1 {
+  width: 600px;
+  height: 600px;
+  background: var(--orb-1);
+  top: -200px;
+  right: -150px;
+  animation: orb-drift-1 18s ease-in-out infinite alternate;
+}
+
+.bg-orb--2 {
+  width: 400px;
+  height: 400px;
+  background: var(--orb-2);
+  bottom: 100px;
+  left: -100px;
+  animation: orb-drift-2 22s ease-in-out infinite alternate;
+}
+
+.bg-orb--3 {
+  width: 300px;
+  height: 300px;
+  background: var(--orb-3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: orb-drift-3 15s ease-in-out infinite alternate;
+}
+
+@keyframes orb-drift-1 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(-40px, 60px) scale(1.1); }
+}
+@keyframes orb-drift-2 {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(50px, -30px) scale(0.9); }
+}
+@keyframes orb-drift-3 {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to   { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* ── App Wrapper ─────────────────────────────────────────── */
+.app-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: wrapper-in var(--dur-slow) var(--ease-smooth) both;
+}
+
+@keyframes wrapper-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.app-header {
+  text-align: center;
+  padding: 8px 0 4px;
+}
+
+.app-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.logo-mark {
+  font-size: 1.1rem;
+  color: var(--gold);
+  animation: logo-pulse 3s ease-in-out infinite;
+}
+
+@keyframes logo-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.app-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+/* ── Stats Bar ───────────────────────────────────────────── */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 14px 32px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 28px;
+  transition: transform var(--dur-med) var(--ease-spring);
+}
+
+.stat-pill:hover {
+  transform: translateY(-2px);
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  line-height: 1;
+  transition: color var(--dur-med) var(--ease-smooth);
+}
+
+#stat-active .stat-num { color: var(--gold); }
+#stat-done   .stat-num { color: var(--success); }
+
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--glass-border);
+  flex-shrink: 0;
+}
+
+/* ── Input Card ──────────────────────────────────────────── */
+.input-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 14px 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: border-color var(--dur-med) var(--ease-smooth),
+              box-shadow var(--dur-med) var(--ease-smooth);
+}
+
+.input-card:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold-dim),
+              0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.input-icon {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color var(--dur-med) var(--ease-smooth),
+              transform var(--dur-med) var(--ease-spring);
+  user-select: none;
+}
+
+.input-card:focus-within .input-icon {
+  color: var(--gold);
+  transform: rotate(45deg);
+}
+
+.task-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  caret-color: var(--gold);
+}
+
+.task-input::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Add Button ──────────────────────────────────────────── */
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-smooth),
+              transform var(--dur-fast) var(--ease-spring),
+              box-shadow var(--dur-fast) var(--ease-smooth);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transition: opacity var(--dur-fast);
+}
+
+.add-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px var(--gold-dim);
+}
+
+.add-btn:hover::before { opacity: 1; }
+
+.add-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.add-btn__arrow {
+  font-size: 1rem;
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.add-btn:hover .add-btn__arrow {
+  transform: translateX(3px);
+}
+
+/* ── Filter Tabs ─────────────────────────────────────────── */
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.filter-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 9px 16px;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--dur-med) var(--ease-smooth),
+              color var(--dur-med) var(--ease-smooth),
+              transform var(--dur-fast) var(--ease-spring);
+}
+
+.filter-tab:hover {
+  color: var(--text-primary);
+  background: var(--glass-hover);
+}
+
+.filter-tab:active {
+  transform: scale(0.97);
+}
+
+.filter-tab--active {
+  background: var(--gold-dim) !important;
+  color: var(--gold-light) !important;
+  font-weight: 500;
+}
+
+/* ── Task List ───────────────────────────────────────────── */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Task Item ───────────────────────────────────────────── */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--dur-med) var(--ease-smooth),
+              background var(--dur-med) var(--ease-smooth),
+              transform var(--dur-fast) var(--ease-spring),
+              box-shadow var(--dur-med) var(--ease-smooth);
+
+  /* Entry animation */
+  animation: task-in var(--dur-med) var(--ease-spring) both;
+}
+
+@keyframes task-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.task-item:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: var(--glass-hover);
+  transform: translateX(3px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Gold left-bar accent on hover */
+.task-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 2px;
+  background: var(--gold);
+  border-radius: 0 2px 2px 0;
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-smooth),
+              height var(--dur-med) var(--ease-smooth),
+              top var(--dur-med) var(--ease-smooth);
+}
+
+.task-item:hover::before {
+  opacity: 1;
+  height: 70%;
+  top: 15%;
+}
+
+/* Completed Task State */
+.task-item--completed {
+  opacity: 0.55;
+  border-color: transparent;
+}
+
+.task-item--completed:hover {
+  opacity: 0.7;
+  border-color: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
+}
+
+.task-item--completed::before {
+  background: var(--success);
+}
+
+/* Exit animation class (added by JS) */
+.task-item--exit {
+  animation: task-out var(--dur-med) var(--ease-smooth) forwards;
+  pointer-events: none;
+}
+
+@keyframes task-out {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    max-height: 100px;
+    margin-bottom: 8px;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px) scale(0.95);
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+/* ── Checkbox ────────────────────────────────────────────── */
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-muted);
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--dur-fast) var(--ease-smooth),
+              background var(--dur-fast) var(--ease-smooth),
+              transform var(--dur-fast) var(--ease-spring),
+              box-shadow var(--dur-fast) var(--ease-smooth);
+  background: transparent;
+  outline: none;
+}
+
+.task-checkbox::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bg);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity var(--dur-fast), transform var(--dur-fast) var(--ease-spring);
+}
+
+.task-checkbox:hover {
+  border-color: var(--gold);
+  transform: scale(1.1);
+  box-shadow: 0 0 0 4px var(--gold-glow);
+}
+
+.task-checkbox--checked {
+  background: var(--success) !important;
+  border-color: var(--success) !important;
+  box-shadow: 0 0 0 3px var(--success-dim) !important;
+}
+
+.task-checkbox--checked::after {
+  content: '✓';
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--bg);
+  opacity: 1;
+  transform: scale(1);
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  background: none;
+}
+
+/* ── Task Text ───────────────────────────────────────────── */
+.task-text {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  word-break: break-word;
+  transition: color var(--dur-med) var(--ease-smooth);
+}
+
+.task-item--completed .task-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--text-muted);
+}
+
+/* ── Task Edit Input ─────────────────────────────────────── */
+.task-edit-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  outline: none;
+  caret-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+/* ── Task Actions ────────────────────────────────────────── */
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity var(--dur-fast) var(--ease-smooth),
+              transform var(--dur-fast) var(--ease-smooth);
+}
+
+.task-item:hover .task-actions {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Always visible when editing */
+.task-item--editing .task-actions {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.task-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background var(--dur-fast) var(--ease-smooth),
+              border-color var(--dur-fast) var(--ease-smooth),
+              transform var(--dur-fast) var(--ease-spring),
+              color var(--dur-fast) var(--ease-smooth);
+  color: var(--text-muted);
+  outline: none;
+}
+
+/* Edit button */
+.task-action-btn--edit:hover {
+  background: var(--gold-dim);
+  border-color: rgba(201, 168, 76, 0.25);
+  color: var(--gold-light);
+  transform: scale(1.1);
+}
+
+/* Save button */
+.task-action-btn--save {
+  color: var(--success);
+  border-color: var(--success-dim);
+  background: var(--success-dim);
+}
+
+.task-action-btn--save:hover {
+  background: rgba(76, 175, 130, 0.25);
+  transform: scale(1.1);
+}
+
+/* Delete button */
+.task-action-btn--delete:hover {
+  background: var(--danger-dim);
+  border-color: rgba(201, 97, 76, 0.25);
+  color: var(--danger);
+  transform: scale(1.1) rotate(8deg);
+}
+
+/* ── Section Wrapper ─────────────────────────────────────── */
+.task-section {
+  min-height: 120px;
+  position: relative;
+}
+
+/* ── Empty State ─────────────────────────────────────────── */
+.empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  animation: empty-in var(--dur-slow) var(--ease-smooth) both;
+}
+
+.empty-state.visible {
+  display: flex;
+}
+
+@keyframes empty-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.empty-state__icon {
+  font-size: 2.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  animation: empty-icon-float 4s ease-in-out infinite;
+}
+
+@keyframes empty-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.empty-state__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.empty-state__sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.app-footer {
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-smooth);
+}
+
+.app-footer.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.clear-btn {
+  background: none;
+  border: 1px solid rgba(201, 97, 76, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--danger);
+  cursor: pointer;
+  transition: background var(--dur-fast),
+              border-color var(--dur-fast),
+              transform var(--dur-fast) var(--ease-spring);
+}
+
+.clear-btn:hover {
+  background: var(--danger-dim);
+  border-color: rgba(201, 97, 76, 0.5);
+  transform: translateY(-1px);
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ── Focus Visible ───────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 520px) {
+  body {
+    padding: 28px 12px 60px;
+    align-items: flex-start;
+  }
+
+  .app-wrapper { gap: 14px; }
+
+  .logo-text { font-size: 2rem; }
+
+  .stats-bar { padding: 12px 16px; }
+  .stat-pill { padding: 0 16px; }
+  .stat-num  { font-size: 1.5rem; }
+
+  .input-card {
+    padding: 10px 10px 10px 14px;
+  }
+
+  .add-btn__label { display: none; }
+  .add-btn {
+    padding: 10px 14px;
+    font-size: 1rem;
+  }
+  .add-btn__arrow { font-size: 1.1rem; }
+
+  .task-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .filter-tab {
+    font-size: 0.72rem;
+    padding: 8px 10px;
+  }
+
+  .task-item {
+    padding: 14px 12px;
+    gap: 10px;
+  }
+
+  .task-text { font-size: 0.82rem; }
+}

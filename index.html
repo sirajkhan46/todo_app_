@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opus — Task Manager</title>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Google Fonts: Cormorant Garamond (display) + DM Mono (tasks) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <!-- Ambient background orbs -->
+  <div class="bg-orb bg-orb--1" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb--2" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb--3" aria-hidden="true"></div>
+
+  <main class="app-wrapper">
+
+    <!-- ── Header ── -->
+    <header class="app-header">
+      <div class="app-logo">
+        <span class="logo-mark" aria-hidden="true">◆</span>
+        <span class="logo-text">Opus</span>
+      </div>
+      <p class="app-tagline">Your work, distilled.</p>
+    </header>
+
+    <!-- ── Stats Bar ── -->
+    <section class="stats-bar" aria-label="Task statistics">
+      <div class="stat-pill" id="stat-total">
+        <span class="stat-num" id="count-total">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-pill" id="stat-active">
+        <span class="stat-num" id="count-active">0</span>
+        <span class="stat-label">Active</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-pill" id="stat-done">
+        <span class="stat-num" id="count-done">0</span>
+        <span class="stat-label">Done</span>
+      </div>
+    </section>
+
+    <!-- ── Input Card ── -->
+    <section class="input-card" aria-label="Add new task">
+      <div class="input-row">
+        <div class="input-wrapper">
+          <span class="input-icon" aria-hidden="true">+</span>
+          <input
+            type="text"
+            id="task-input"
+            class="task-input"
+            placeholder="What needs to be done?"
+            maxlength="200"
+            autocomplete="off"
+            aria-label="New task"
+          />
+        </div>
+        <button class="add-btn" id="add-btn" aria-label="Add task">
+          <span class="add-btn__label">Add</span>
+          <span class="add-btn__arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── Filter Tabs ── -->
+    <nav class="filter-tabs" aria-label="Filter tasks">
+      <button class="filter-tab filter-tab--active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="active">Active</button>
+      <button class="filter-tab" data-filter="completed">Completed</button>
+    </nav>
+
+    <!-- ── Task List ── -->
+    <section class="task-section" aria-label="Task list">
+      <ul class="task-list" id="task-list" role="list">
+        <!-- Tasks are injected here by JS -->
+      </ul>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="empty-state" aria-live="polite">
+        <div class="empty-state__icon" aria-hidden="true">◇</div>
+        <p class="empty-state__title">Nothing here yet</p>
+        <p class="empty-state__sub">Add a task above to get started.</p>
+      </div>
+    </section>
+
+    <!-- ── Footer Actions ── -->
+    <footer class="app-footer" id="app-footer">
+      <button class="clear-btn" id="clear-completed-btn" aria-label="Clear all completed tasks">
+        Clear completed
+      </button>
+    </footer>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
