@@ -39,3 +39,4 @@ Just open `index.html` in any modern browser. No build step, no server needed.
 - **Aesthetic**: Luxury dark with warm gold accents and glassmorphism panels
 - **Fonts**: Cormorant Garamond (display) + DM Mono (tasks) + DM Sans (UI)
 - **Palette**: `#0d0d10` base · `#c9a84c` gold · `#4caf82` success · `#c9614c` danger
+ 
